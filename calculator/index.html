@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="app.js"></script>
+	</head>
+<body>
+	<div class="wrap">
+		<input type="text" name="input" id="input" autocomplete="off">
+		<input type="button" class="btns" value="(">
+		<input type="button" class="btns" value=")">
+		<input type="button" class="btns" value="<-">
+		<input type="button" class="btns" value="1">
+		<input type="button" class="btns" value="2">
+		<input type="button" class="btns" value="3">
+		<input type="button" class="btns" value="+">
+		<input type="button" class="btns" value="4">
+		<input type="button" class="btns" value="5">
+		<input type="button" class="btns" value="6">
+		<input type="button" class="btns" value="-">
+		<input type="button" class="btns" value="7">
+		<input type="button" class="btns" value="8">
+		<input type="button" class="btns" value="9">
+		<input type="button" class="btns" value="*">
+		<input type="button" class="btns" value="C">
+		<input type="button" class="btns" value="0">
+		<input type="button" class="btns" value=".">
+		<input type="button" class="btns" value="/">
+		<input type="button" class="btns" value="=">
+		<input type="button" class="btns" value="^">
+	</div>
+</body>
+
+<style>
+	body{
+		background-color: gray;
+		display: grid;
+		place-items: center;
+		height: 100dvh;
+	}
+
+	.wrap{
+		border-radius: 10px;
+		background-color: black;
+		height: 500px;
+		width: auto;
+		display: grid;
+	}
+
+	.btns, #input{
+		margin: 5px;
+	}
+
+	.btns{
+		border-radius: 20px;
+		border: none;
+		font-size: 1.1rem;
+		border: 1px black solid;
+	}
+
+	.btns:hover{
+		background-color: grey;
+		color: white;
+		font-size: 1rem;
+	}
+
+	#input{
+		text-align: right;
+		font-size: 2rem;
+		grid-column: span 4;
+	}
+
+	.btns:nth-child(4){
+		grid-column: span 2;
+	}
+
+	.btns:nth-child(21){
+		grid-column: 1 / 4;
+	}
+</style>
+
+
+<script>
+	const btns = document.querySelectorAll('.btns');
+	const input = document.getElementById('input');
+
+	btns.forEach(btn => {
+		btn.onclick = () =>{
+			if(btn.value == "C"){
+				input.value = "";
+			}else if(btn.value == "<-"){
+				var val = input.value;
+				input.value = val.substring(0,val.length-1);
+			}else if(btn.value == "="){
+				input.value = eval(input.value);
+			}else{
+				input.value += btn.value
+			}
+		}
+	});
+
+	
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <title>Dinosaur</title>
+    </head>
+    <body>
+        <div id="screen">
+            <div id="score">Score: 0</div>
+            <div id="pause"><i class="fa-solid fa-pause"></i></div>
+            <div id="player"></div>
+            <div id="dino"></div>
+            <div id="status"></div>
+            <div id="play"></div>
+        </div>
+    </body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: gray;
+            display: grid;
+            place-items: center;
+            height: 100dvh;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        #pause {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        #pause:hover {
+            cursor: pointer;
+        }
+
+        #screen {
+            width: 800px;
+            height: 500px;
+            border: 1px solid black;
+            background-color: antiquewhite;
+            position: relative;
+        }
+
+        #player {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(to top, blue, blueviolet);
+            border: 1px solid;
+            position: absolute;
+            left: 300px /* 800px(screen width) - 300px(block width) */;
+            top: 400px; /* 500px(screen heigth) - 100px(block height) */
+        }
+
+        .on-jump {
+            animation: jump 800ms linear;
+        }
+
+        @keyframes jump {
+            0% {
+                transform: rotateX(0);
+                top: 400px;
+            }
+            50% {
+                transform: rotateX(90deg);
+                top: 250px;
+            }
+            100% {
+                top: 400px;
+            }
+        }
+
+        #dino {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to top, violet, blueviolet);
+            border: 1px solid;
+            position: absolute;
+            top: 450px; /* 500px(screen heigth) - 100px(block height) */
+            left: 70px; /* 800px(screen width) - 100px(dino width) */
+
+            /* Animation // Movement */
+            animation: move-left 2s linear infinite;
+        }
+
+        #status {
+            position: absolute;
+            top: 4rem;
+            left: 10rem;
+            font-size: 10rem;
+            font-weight: bold;
+        }
+
+        @keyframes move-left {
+            0% {
+                left: 700px;
+            }
+            100% {
+                left: 0px;
+            }
+        }
+    </style>
+
+    
+    <script>
+        const dino = document.getElementById("dino");
+        const block = document.getElementById("player");
+        const status = document.getElementById("status");
+
+
+        var score = 0;
+        var blockTop = parseInt(
+            window.getComputedStyle(block).getPropertyValue("top")
+        );
+
+        document.addEventListener("keydown", function (event) {
+            blockTop = parseInt(
+                window.getComputedStyle(block).getPropertyValue("top")
+            );
+            if (event.keyCode == 32 && blockTop == 400) {
+                jump();
+            }
+            if(event.keyCode == 13){
+                onPause();
+            }
+        });
+
+        function jump() {
+            if (block.classList != "on-jump") {
+                block.classList.add("on-jump");
+            }
+
+            setTimeout(function () {
+                block.classList.remove("on-jump");
+                if (
+                    parseInt(
+                        window.getComputedStyle(block).getPropertyValue("top")
+                    ) == 400 &&
+                    status.innerHTML != "Game Over"
+                ) {
+                    addScore();
+                }
+            }, 800);
+        }
+
+        function addScore() {
+            score++;
+            document.getElementById("score").innerHTML = "Score: " + score;
+        }
+
+
+
+        function checkDead() {
+            const playerLeft = parseInt(
+                window.getComputedStyle(block).getPropertyValue("left")
+            );
+            const dinoLeft = parseInt(
+                window.getComputedStyle(dino).getPropertyValue("left")
+            );
+            blockTop = parseInt(
+                window.getComputedStyle(block).getPropertyValue("top")
+            );
+
+            if (dinoLeft <= 380 && dinoLeft >= 250 && blockTop >= 350) {
+                status.innerHTML = "Game Over";
+                status.style.fontSize = "6rem";
+                status.style.color = "red";
+                score = 0;
+                dino.style.display = "none";
+                reload();
+            }
+        }
+
+        const play = document.getElementById("play");
+
+        function reload() {
+            play.innerHTML = "<i class='fa-solid fa-play'></i>";
+            play.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem;
+            color: bluegreen;
+            cursor: pointer;
+        `;
+            play.addEventListener("click", function () {
+                location.reload();
+            });
+        }
+
+      
+
+        const pause = document.getElementById("pause");
+
+        pause.addEventListener("click", function () {
+            onPause();
+        });
+
+
+        function onPause(){
+            if (status.innerHTML != "Game Over") {
+                if (dino.style.display != "none") {
+                    dino.style.display = "none";
+                    status.innerHTML = "Paused";
+                } else {
+                    dino.style.display = "block";
+                    status.innerHTML = "";
+                }
+            }
+        }
+
+        
+
+
+
+        setInterval(function () {
+            checkDead();
+        }, 10);
+    </script>
+</html>

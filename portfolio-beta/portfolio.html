@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Porfolio</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <a href="index.html" id="back"><i class="fa-solid fa-hand-point-left icon"></i></a>
+    <div class="wrap">
+      <h1>Portfolio</h1>
+      <h1>T Shirt Design</h1>
+      <img src="porfolio/Final.jpg" alt="" />
+      <h1>Photo Editing</h1>
+      <img src="porfolio/Untitled-1.jpg" alt="" />
+      <h1>Graphic Design</h1>
+      <img src="porfolio/Color Change.jpg" alt="" />
+    </div>
+  </body>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      background-color: black;
+      position: relative;
+    }
+
+    h1:nth-child(1) {
+      color: black;
+      background-color: beige;
+      padding: 20px 0;
+      margin-bottom: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: palevioletred;
+    }
+    img {
+      border-radius: 15px;
+      border: 5px pink solid;
+      width: 100%;
+      height: 100%;
+      margin-bottom: 10px;
+    }
+
+    .icon {
+      font-size: 4rem;
+    }
+
+    .icon:hover {
+      color: white;
+    }
+
+    .icon:active {
+      font-size: 5rem;
+    }
+
+    #back {
+      border: none;
+      background-color: transparent;
+      position: fixed;
+      top: 75%;
+      right: 10px;
+      z-index: 1000;
+      padding: 50px;
+      font-size: 20px;
+    }
+
+    @media screen and (width < 500px) {
+      #back {
+        right: 0;
+        top: 80%;
+      }
+    }
+  </style>
+</html>

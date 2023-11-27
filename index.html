@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Snippets</title>
+  </head>
+  <body>
+    <h1>Some Fun Things</h1>
+    <div class="card-gallery">
+      <div class="card">
+        <div class="content">tic tact toe</div>
+        <a href="tictactoe/index.html">visit</a>
+      </div>
+      <div class="card">
+        <div class="content">porfolio-beta</div>
+        <a href="portfolio-beta/index.html">visit</a>
+      </div>
+      <div class="card">
+        <div class="content">fun*</div>
+        <a href="fun/sample.html">visit</a>
+      </div>
+      <div class="card">
+        <div class="content">dinobox</div>
+        <a href="dinasaur/dino.html">visit</a>
+      </div>
+      <div class="card">
+        <div class="content">calculator</div>
+        <a href="calculator/index.html">visit</a>
+      </div>
+      <div class="card">
+        <div class="content">api-fetch</div>
+        <a href="api-fetch/quote.html">visit</a>
+      </div>
+    </div>
+  </body>
+  <style>
+    body {
+      display: grid;
+      place-items: center;
+
+      background-color: antiquewhite;
+      font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    }
+
+    h1 {
+      color: black;
+    }
+
+    a {
+      text-decoration: none;
+      color: cornflowerblue;
+    }
+
+    .card-gallery {
+      display: grid;
+
+      grid-template-columns: repeat(3, auto);
+    }
+
+    .card-gallery:has(.card:hover) > .card:not(:hover) {
+      scale: 0.8;
+      opacity: 0.7;
+    }
+
+    .card {
+      height: 150px;
+      width: 150px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      background-color: darkgray;
+
+      transition: scale 350ms ease, opacity 350ms linear;
+
+    }
+
+    .card:hover {
+      background-color: cadetblue;
+      box-shadow: 0px 0px 9px -2px rgba(11, 237, 218, 0.5);
+    }
+
+    .card a {
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+
+      background-color: azure;
+    }
+
+    .card a:hover {
+      scale: 1.2;
+    }
+
+
+    @media screen and (max-width: 768px) {
+      .card-gallery{
+        grid-template-columns: repeat(2, auto);
+      }
+    }
+  </style>
+</html>

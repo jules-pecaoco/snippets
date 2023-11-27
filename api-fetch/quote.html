@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Random Quote</title>
+</head>
+<body>
+    <div>
+        <p></p> 
+        <button>Get Quote</button>
+    </div>
+</body>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: antiquewhite;
+    }
+
+    div{
+        margin-top: 40%;
+        width: fit-content;
+        text-align: center;
+    }
+    p{
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    button{
+        border-radius: 25px;
+        font-size: 2rem;
+    }
+    button:active{
+        transform: translateY(-5px);
+    }
+    @media only screen and (width>600px) {
+        div{
+            margin-top: 15%;
+        }
+    }
+</style>
+<script src="quote.js" defer></script>
+</html>

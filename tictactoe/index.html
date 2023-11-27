@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>The Game</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+        <div class="buttons"></div>
+    </div>
+    <div class="win">
+        <h1 id="result"></h1>
+    </div>
+    <div>
+        <audio id = "audio-player" controls>
+            <source src="https://music.youtube.com/watch?v=h1trO_Js2CA&list=RDAMVMhTBPPSNGYi8"type="audio/mpeg">
+        </audio>
+    </div>
+</body>
+
+<style>
+
+    body{
+        display: grid;
+        place-items: center;
+    }
+
+    #result{
+        color: red;
+        background-color: black;
+        font-size: 10rem;
+        position: absolute;
+        left: 30dvw;
+        top: 0;
+    }
+
+    .wrap{
+        height: 100dvh;
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(3, 1fr);
+        width: 50dvw;
+    }
+
+    .active{
+        background-color: red !important;
+    }
+
+    .buttons{
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 5rem;
+        width: 150px;
+        height: 150px;
+        background-color: #000;
+        margin: 10px;
+        cursor: pointer;
+    }
+</style>
+    
+<script>
+    const buttons = document.querySelectorAll('.buttons');
+
+    let count = 0;
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if(count%2 == 0){
+                button.innerHTML = "X";
+            }else{
+                button.innerHTML = "O";
+            }
+            count++
+            checkWin();
+        })
+    })
+
+    
+    // create a function to detect the innerHTMl of the buttons
+    // if the innerHTML is X or O then do not change the innerHTML
+    // if the innerHTML is empty then change the innerHTML to X or O
+    const result = document.getElementById('result');
+
+    function checkWin() {
+        const topO = buttons[0].innerHTML == "O" && buttons[1].innerHTML == "O" && buttons[2].innerHTML == "O";
+        const topX = buttons[0].innerHTML == "X" && buttons[1].innerHTML == "X" && buttons[2].innerHTML == "X";
+        const midO = buttons[3].innerHTML == "O" && buttons[4].innerHTML == "O" && buttons[5].innerHTML == "O"; 
+        const midX = buttons[3].innerHTML == "X" && buttons[4].innerHTML == "X" && buttons[5].innerHTML == "X";
+        const botO = buttons[6].innerHTML == "O" && buttons[7].innerHTML == "O" && buttons[8].innerHTML == "O";
+        const botX = buttons[6].innerHTML == "X" && buttons[7].innerHTML == "X" && buttons[8].innerHTML == "X";
+
+        const leftO = buttons[0].innerHTML == "O" && buttons[3].innerHTML == "O" && buttons[6].innerHTML == "O";
+        const leftX = buttons[0].innerHTML == "X" && buttons[3].innerHTML == "X" && buttons[6].innerHTML == "X";
+        const centerO = buttons[1].innerHTML == "O" && buttons[4].innerHTML == "O" && buttons[7].innerHTML == "O";
+        const centerX = buttons[1].innerHTML == "X" && buttons[4].innerHTML == "X" && buttons[7].innerHTML == "X";
+        const rightO = buttons[2].innerHTML == "O" && buttons[5].innerHTML == "O" && buttons[8].innerHTML == "O";
+        const rightX = buttons[2].innerHTML == "X" && buttons[5].innerHTML == "X" && buttons[8].innerHTML == "X";
+
+        const diagO = buttons[0].innerHTML == "O" && buttons[4].innerHTML == "O" && buttons[8].innerHTML == "O";
+        const diagX = buttons[0].innerHTML == "X" && buttons[4].innerHTML == "X" && buttons[8].innerHTML == "X";
+        const diag2O = buttons[2].innerHTML == "O" && buttons[4].innerHTML == "O" && buttons[6].innerHTML == "O";
+        const diag2X = buttons[2].innerHTML == "X" && buttons[4].innerHTML == "X" && buttons[6].innerHTML == "X";
+
+        if(topO || midO || botO || leftO || centerO || rightO || diagO || diag2O){
+            startMusic();
+            return result.innerText = "O wins";
+        }else if(topX || midX || botX || leftX || centerX || rightX || diagX || diag2X){
+            startMusic();
+            return result.innerText = "X wins";
+        }else if(count == 9){
+            startMusic();
+            return result.innerText = "Draw";
+        }
+    }
+
+    function startMusic() {
+    const audioPlayer = document.getElementById('audio-player');
+    // Set the desired start time in seconds
+    const startTimeInSeconds = 50;
+    audioPlayer.currentTime = startTimeInSeconds;
+    audioPlayer.play();
+    //sample pull request
+}
+
+</script>
+</html>
