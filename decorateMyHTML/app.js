@@ -38,10 +38,19 @@ function writeMessage() {
     });
 }
 
-// Get Data
+// Colors
+const colors = [
+  '#dc3545', 
+  '#28a745', 
+  '#ffc107', 
+  '#ffffff', 
+  '#6c757d' 
+];
 
+// Get Data
 function displayData() {
   const dataRef = ref(db);
+  var i = 0;
   get(child(dataRef, "Message/"))
     .then((snapshot) => {
       const data = snapshot.val();
@@ -52,6 +61,7 @@ function displayData() {
           element.classList.add("from");
           const parent = document.getElementById("msgs");
           element.textContent = `${item.username}`;
+          element.style.backgroundColor = (colors[i++ % colors.length]);
           parent.appendChild(element);
         });
       } else {
@@ -68,7 +78,6 @@ function displayData() {
 
 // Load Data @Initalization
 displayData();
-
 
 // DOM Elements
 // Close Card
@@ -89,30 +98,31 @@ const backPage = document.getElementById("backPage");
 backPage.onclick = function () {
   mainPage.style.display = "block";
   addDeco.style.display = "none";
-}
+};
 
 nextPage.onclick = function () {
   mainPage.style.display = "none";
   addDeco.style.display = "block";
-}
+};
 
-
-parent.addEventListener('click', function(event) {
+parent.addEventListener("click", function (event) {
   const clickedElement = event.target;
 
-  if (clickedElement.classList.contains('from')) {
+  if (clickedElement.classList.contains("from")) {
     card.style.display = "block";
-    displayCard(clickedElement.textContent);
+    const color = clickedElement.style.backgroundColor;
+
+    displayCard(clickedElement.textContent, color);
   }
 });
 
-
-function displayCard(username) {
+function displayCard(username, color) {
   const dataRef = ref(db);
 
-  get(child(dataRef, 'Message/' + username))
+  get(child(dataRef, "Message/" + username))
     .then((snapshot) => {
       if (snapshot.exists()) {
+        msgD.parentNode.style.backgroundColor = color;
         msgD.textContent = snapshot.val().message;
         fromD.textContent = snapshot.val().username;
       } else {
@@ -127,7 +137,4 @@ function displayCard(username) {
     });
 }
 
-
-function rain() {
-  
-}
+function rain() {}
