@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>decorateMyHTML</title>
+  </head>
+  <body>
+    <h1>Decorate My HTML</h1>
+    <div>
+      <label for="message">Enter Message</label>
+      <input type="text" name="" id="message" />
+      <label for="nickname">Enter nickname</label>
+      <input type="text" name="" id="nickname" />
+      <button id="sub">Display</button>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+    }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  </style>
+</html>
