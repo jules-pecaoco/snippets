@@ -32,7 +32,6 @@ function hearts(){
     {
         creat.remove();
     },3000);
-
 }
 
 

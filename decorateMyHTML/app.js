@@ -23,7 +23,6 @@ var button = document.getElementById("sub");
 button.addEventListener("click", function () {
   writeMessage();
   location.reload();
-  startMusic();
 });
 
 function writeMessage() {
@@ -33,6 +32,7 @@ function writeMessage() {
   })
     .then(() => {
       alert("Message sent!");
+      location.reload();
     })
     .catch((error) => {
       alert("Error: " + error.message);
@@ -40,13 +40,7 @@ function writeMessage() {
 }
 
 // Colors
-const colors = [
-  '#dc3545', 
-  '#28a745', 
-  '#ffc107', 
-  '#ffffff', 
-  '#6c757d' 
-];
+const colors = ["#dc3545", "#28a745", "#ffc107", "#ffffff", "#6c757d"];
 
 // Get Data
 function displayData() {
@@ -62,7 +56,7 @@ function displayData() {
           element.classList.add("from");
           const parent = document.getElementById("msgs");
           element.textContent = `${item.username}`;
-          element.style.backgroundColor = (colors[i++ % colors.length]);
+          element.style.backgroundColor = colors[i++ % colors.length];
           parent.appendChild(element);
         });
       } else {
@@ -86,6 +80,7 @@ const close = document.getElementById("closeCard");
 const card = document.getElementById("toggle");
 close.addEventListener("click", () => {
   card.style.display = "none";
+  startMusic(false);
 });
 
 // Edit Card
@@ -108,26 +103,26 @@ nextPage.onclick = function () {
 
 parent.addEventListener("click", function (event) {
   const clickedElement = event.target;
-  startMusic();
 
   if (clickedElement.classList.contains("from")) {
     card.style.display = "block";
+    startMusic(true);
     const color = clickedElement.style.backgroundColor;
     displayCard(clickedElement.textContent, color);
   }
 });
 
-
 // Play Music
-function startMusic() {
-  const audioPlayer = document.getElementById('audioP');
-  // Set the desired start time in seconds
+function startMusic(bool) {
+  const audioPlayer = document.getElementById("audioP");
   const startTimeInSeconds = 40;
   audioPlayer.currentTime = startTimeInSeconds;
-  audioPlayer.play();
-  //sample pull request
+  if (bool) {
+    audioPlayer.play();
+  }else{
+    audioPlayer.pause();
+  }
 }
-
 
 // Display Card
 function displayCard(username, color) {
@@ -150,5 +145,3 @@ function displayCard(username, color) {
       // alert("Data displayed successfully");
     });
 }
-
-function rain() {}
