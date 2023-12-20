@@ -28,22 +28,26 @@ button.addEventListener("click", function () {
 });
 
 function writeMessage() {
-  var show = true;
-  if (pri.checked) {
-    show = false;
-  } 
-  set(ref(db, "Message/" + username.value), {
-    message: message.value,
-    username: username.value,
-    show: show,
-  })
-    .then(() => {
-      alert("Message sent!");
-      location.reload();
+  if (message.value == "" || username.value == "") {
+    alert("Please fill all the fields");
+  } else {
+    var show = true;
+    if (pri.checked) {
+      show = false;
+    }
+    set(ref(db, "Message/" + username.value), {
+      message: message.value,
+      username: username.value,
+      show: show,
     })
-    .catch((error) => {
-      alert("Error: " + error.message);
-    });
+      .then(() => {
+        alert("Message sent!");
+        location.reload();
+      })
+      .catch((error) => {
+        alert("Error: " + error.message);
+      });
+  }
 }
 
 // Colors
@@ -126,7 +130,7 @@ function startMusic(bool) {
   audioPlayer.currentTime = startTimeInSeconds;
   if (bool) {
     audioPlayer.play();
-  }else{
+  } else {
     audioPlayer.pause();
   }
 }
@@ -140,9 +144,9 @@ function displayCard(username, color) {
       if (snapshot.exists()) {
         msgD.parentNode.style.backgroundColor = color;
         const show = snapshot.val().show;
-        if(show){
+        if (show) {
           msgD.textContent = snapshot.val().message;
-        }else{
+        } else {
           msgD.textContent = "Message is Private till Christmas🎁/till I code so🙃";
         }
         fromD.textContent = snapshot.val().username;
