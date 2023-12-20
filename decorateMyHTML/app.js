@@ -16,9 +16,11 @@ import { getDatabase, ref, child, get, set, update, remove } from "https://www.g
 
 const db = getDatabase();
 
-var message = document.getElementById("message");
-var username = document.getElementById("nickname");
-var button = document.getElementById("sub");
+const message = document.getElementById("message");
+const username = document.getElementById("nickname");
+const button = document.getElementById("sub");
+const pub = document.getElementById("public");
+const pri = document.getElementById("private");
 
 button.addEventListener("click", function () {
   writeMessage();
@@ -26,9 +28,14 @@ button.addEventListener("click", function () {
 });
 
 function writeMessage() {
+  var show = true;
+  if (pri.checked) {
+    show = false;
+  } 
   set(ref(db, "Message/" + username.value), {
     message: message.value,
     username: username.value,
+    show: show,
   })
     .then(() => {
       alert("Message sent!");
@@ -132,7 +139,12 @@ function displayCard(username, color) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         msgD.parentNode.style.backgroundColor = color;
-        msgD.textContent = snapshot.val().message;
+        const show = snapshot.val().show;
+        if(show){
+          msgD.textContent = snapshot.val().message;
+        }else{
+          msgD.textContent = "Message is Private till Jules is Single";
+        }
         fromD.textContent = snapshot.val().username;
       } else {
         console.log("No data found");
