@@ -12,7 +12,7 @@ function showInputs() {
 }
 
 function startMusic() {
-    const audioPlayer = document.getElementById('audio-player');
+    const audioPlayer = document.getElementById('audioP');
     // Set the desired start time in seconds
     const startTimeInSeconds = 50;
     audioPlayer.currentTime = startTimeInSeconds;

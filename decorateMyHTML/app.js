@@ -23,6 +23,7 @@ var button = document.getElementById("sub");
 button.addEventListener("click", function () {
   writeMessage();
   location.reload();
+  startMusic();
 });
 
 function writeMessage() {
@@ -107,15 +108,28 @@ nextPage.onclick = function () {
 
 parent.addEventListener("click", function (event) {
   const clickedElement = event.target;
+  startMusic();
 
   if (clickedElement.classList.contains("from")) {
     card.style.display = "block";
     const color = clickedElement.style.backgroundColor;
-
     displayCard(clickedElement.textContent, color);
   }
 });
 
+
+// Play Music
+function startMusic() {
+  const audioPlayer = document.getElementById('audioP');
+  // Set the desired start time in seconds
+  const startTimeInSeconds = 40;
+  audioPlayer.currentTime = startTimeInSeconds;
+  audioPlayer.play();
+  //sample pull request
+}
+
+
+// Display Card
 function displayCard(username, color) {
   const dataRef = ref(db);
 
