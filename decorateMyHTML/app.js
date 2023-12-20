@@ -143,7 +143,7 @@ function displayCard(username, color) {
         if(show){
           msgD.textContent = snapshot.val().message;
         }else{
-          msgD.textContent = "Message is Private till Jules is Single";
+          msgD.textContent = "Message is Private till Christmas🎁/till I code so🙃";
         }
         fromD.textContent = snapshot.val().username;
       } else {
