@@ -1,7 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC_k-awBALRZEs7zgjjPHU1vYBtCdDu2BI",
   authDomain: "decoratemyhtml.firebaseapp.com",
@@ -40,26 +38,96 @@ function writeMessage() {
     });
 }
 
+// Get Data
+const parent = document.getElementById("msgs");
+
 function displayData() {
   const dataRef = ref(db);
-  get(child(dataRef, "Message/")).then((snapshot) => {
-    const data = snapshot.val();
-    if(data){
-      Object.keys(data).forEach((key) => {
-        const item = data[key];
-        const element = document.createElement("div");
-        element.textContent = `Message: ${item.message} Username: ${item.username}`;
-        document.body.appendChild(element);
-      });
-    }else {
-      console.log("No data found");
-    }
-  }).catch((error) => {
-    alert("Error: " + error.message);
-  }).then(() => {
-    alert("Data displayed successfully");
-  });
+  get(child(dataRef, "Message/"))
+    .then((snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        Object.keys(data).forEach((key) => {
+          const item = data[key];
+          const element = document.createElement("div");
+          element.classList.add("from");
+          element.textContent = `${item.username}`;
+          parent.appendChild(element);
+        });
+      } else {
+        console.log("No data found");
+      }
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    })
+    .then(() => {
+      // alert("Data displayed successfully");
+    });
 }
 
-// Call the function to display data
+// Load Data @Initalization
 displayData();
+
+
+// DOM Elements
+// Close Card
+const close = document.getElementById("closeCard");
+const card = document.getElementById("toggle");
+close.addEventListener("click", () => {
+  card.style.display = "none";
+});
+
+// Edit Card
+const msgD = document.getElementById("messageDisplay");
+const fromD = document.getElementById("nicknameDisplay");
+const nextPage = document.getElementById("nextPage");
+const mainPage = document.getElementById("mainPage");
+const addDeco = document.getElementById("addDeco");
+const backPage = document.getElementById("backPage");
+
+backPage.onclick = function () {
+  mainPage.style.display = "block";
+  addDeco.style.display = "none";
+}
+
+nextPage.onclick = function () {
+  mainPage.style.display = "none";
+  addDeco.style.display = "block";
+}
+
+
+parent.addEventListener('click', function(event) {
+  const clickedElement = event.target;
+
+  if (clickedElement.classList.contains('from')) {
+    card.style.display = "block";
+    displayCard(clickedElement.textContent);
+  }
+});
+
+
+function displayCard(username) {
+  const dataRef = ref(db);
+
+  get(child(dataRef, 'Message/' + username))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        msgD.textContent = snapshot.val().message;
+        fromD.textContent = snapshot.val().username;
+      } else {
+        console.log("No data found");
+      }
+    })
+    .catch((error) => {
+      alert("Error: " + error.message);
+    })
+    .then(() => {
+      // alert("Data displayed successfully");
+    });
+}
+
+
+function rain() {
+  
+}
