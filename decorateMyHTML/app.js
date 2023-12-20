@@ -39,7 +39,6 @@ function writeMessage() {
 }
 
 // Get Data
-const parent = document.getElementById("msgs");
 
 function displayData() {
   const dataRef = ref(db);
@@ -51,6 +50,7 @@ function displayData() {
           const item = data[key];
           const element = document.createElement("div");
           element.classList.add("from");
+          const parent = document.getElementById("msgs");
           element.textContent = `${item.username}`;
           parent.appendChild(element);
         });
