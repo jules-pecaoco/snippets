@@ -30,6 +30,7 @@ button.addEventListener("click", function () {
 function writeMessage() {
   if (message.value == "" || username.value == "") {
     alert("Please fill all the fields");
+    return;
   } else {
     var show = true;
     if (pri.checked) {
